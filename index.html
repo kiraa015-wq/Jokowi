@@ -4,254 +4,180 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#003791" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
-  <title>Game Spec Detector Pro</title>
+  <title>Game Spec Detector Pro - Full Database</title>
 
   <style>
-    /* THEME PS4 PROFESSIONAL */
     :root {
-      --ps-blue-deep: #001740;
-      --ps-blue-main: #003791;
-      --ps-blue-light: #0072ce;
-      --ps-accent: #00d9ff;
-      --success: #4caf50;
-      --warning: #ffeb3b;
-      --danger: #f44336;
+      --ps-blue-deep: #001740; --ps-blue-main: #003791; --ps-blue-light: #0072ce;
+      --ps-accent: #00d9ff; --success: #4caf50; --warning: #ff9800; --danger: #f44336;
     }
 
     body {
       background: radial-gradient(circle at top, var(--ps-blue-main) 0%, var(--ps-blue-deep) 100%);
-      background-attachment: fixed;
-      color: white;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      min-height: 100vh;
+      background-attachment: fixed; color: white; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0;
     }
 
-    .header { text-align: center; padding: 40px 20px; }
-    .header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-    .header p { color: #b0c4de; font-size: 0.9rem; margin-top: 5px; }
-
+    .header { text-align: center; padding: 40px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .container { max-width: 850px; margin: 0 auto; padding: 0 20px 50px; }
 
-    /* SIMULATOR CARD */
+    /* Simulator Card */
     .simulator-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px);
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px);
+      border-radius: 15px; padding: 25px; margin: 30px 0; border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .simulator-card h2 { margin: 0 0 20px 0; font-size: 1.1rem; color: var(--ps-accent); text-transform: uppercase; }
+    .simulator-card h2 { margin-top: 0; font-size: 1.1rem; color: var(--ps-accent); }
 
     .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-    @media (max-width: 600px) { .input-grid { grid-template-columns: 1fr; } }
-
-    select {
-      width: 100%; padding: 12px; border-radius: 8px; border: none;
-      background: rgba(0, 0, 0, 0.4); color: white; outline: none; cursor: pointer;
-    }
+    select { width: 100%; padding: 12px; border-radius: 8px; border: none; background: rgba(0, 0, 0, 0.5); color: white; outline: none; }
 
     .btn-calculate {
       width: 100%; background: var(--ps-accent); color: #000; border: none;
-      padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;
-      transition: 0.2s; font-size: 1rem;
+      padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;
     }
-    .btn-calculate:active { transform: scale(0.98); }
+    .btn-calculate:hover { background: white; }
 
-    #resultArea {
-      margin-top: 20px; padding: 20px; border-radius: 10px; display: none;
-      text-align: center; border: 1px solid transparent;
-    }
+    #resultArea { margin-top: 20px; padding: 20px; border-radius: 10px; display: none; text-align: center; background: rgba(0,0,0,0.4); border: 1px solid var(--ps-accent); }
 
-    /* DATABASE LIST */
+    /* Search & Cards */
     .search-bar {
       width: 100%; padding: 15px 25px; background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px;
-      color: white; outline: none; margin-bottom: 25px; box-sizing: border-box;
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; color: white; outline: none; margin-bottom: 25px; box-sizing: border-box;
     }
 
     .game-card {
-      background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 20px;
-      margin-bottom: 15px; border-left: 5px solid var(--ps-blue-light);
-      transition: 0.3s;
+      background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 20px; margin-bottom: 15px;
+      border-left: 5px solid var(--ps-blue-light); transition: 0.3s;
     }
-    .game-card:hover { background: rgba(0, 0, 0, 0.45); transform: translateX(5px); }
+
     .card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    .card-head h3 { margin: 0; font-size: 1.3rem; }
     .genre-tag { font-size: 0.7rem; background: rgba(0, 217, 255, 0.15); color: var(--ps-accent); padding: 4px 10px; border-radius: 4px; font-weight: bold; }
-
     .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-    @media (max-width: 500px) { .spec-grid { grid-template-columns: 1fr; } }
-    
-    .spec-item { background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 8px; }
-    .spec-item label { font-size: 0.65rem; color: #888; text-transform: uppercase; display: block; margin-bottom: 5px; }
-    .spec-item p { margin: 3px 0; font-size: 0.85rem; }
-    .fps-val { color: var(--success); font-weight: bold; font-size: 0.8rem; margin-top: 8px; display: block; }
+    .spec-item { background: rgba(255, 255, 255, 0.03); padding: 10px; border-radius: 8px; }
+    .spec-item label { font-size: 0.65rem; color: #888; display: block; margin-bottom: 5px; text-transform: uppercase; }
+    .spec-item p { margin: 0; font-size: 0.85rem; }
 
-    .footer { text-align: center; padding: 40px; color: #b0c4de; opacity: 0.6; font-size: 0.8rem; }
+    @media (max-width: 600px) { .input-grid, .spec-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 
 <body>
-
   <header class="header">
-    <h1>GAME SPEC DETECTOR</h1>
-    <p>Simulator Performa & Database Game Terupdate 2026</p>
+    <h1>GAME SPEC DETECTOR PRO</h1>
+    <p>Database Game Real & Perkiraan Performa FPS</p>
   </header>
 
   <div class="container">
-    
     <div class="simulator-card">
       <h2>🎮 Cek Performa Spek Kamu</h2>
       <div class="input-grid">
-        <div>
-          <label style="font-size: 0.7rem; color: #aaa; margin-bottom: 5px; display: block;">Pilih Chipset/CPU:</label>
-          <select id="userSpecs">
-            <option value="1">Low End (Athlon / Celeron / Seri Lama)</option>
-            <option value="3">Entry Level (Ryzen 3 3200G / i3 Gen 10)</option>
-            <option value="5" selected>Mid End (Ryzen 5 3500U / Vega 8)</option>
-            <option value="7">Mid-High (Ryzen 5 5500U / i5 Gen 11)</option>
-            <option value="10">High End (Ryzen 5 5600G / i5 Gen 12)</option>
-            <option value="15">Ultra (RTX 3060 / i7 Gen 13)</option>
-            <option value="25">Extreme (RTX 4080 / Ryzen 9)</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size: 0.7rem; color: #aaa; margin-bottom: 5px; display: block;">Pilih Game:</label>
-          <select id="targetGame">
-            <option value="5">The Witcher 3</option>
-            <option value="9">Cyberpunk 2077</option>
-            <option value="3">Valorant</option>
-            <option value="7">Elden Ring</option>
-            <option value="12">Grand Theft Auto VI</option>
-            <option value="6">Ghost of Tsushima</option>
-            <option value="4">Genshin Impact</option>
-          </select>
-        </div>
+        <select id="userSpecs">
+          <option value="1">Low End (Athlon / Celeron / Intel HD)</option>
+          <option value="4">Entry (Ryzen 3 3200G / i3 Gen 10)</option>
+          <option value="6" selected>Mid (Ryzen 5 3500U / Vega 8)</option>
+          <option value="9">Mid-High (Ryzen 5 5500U / i5 Gen 11)</option>
+          <option value="15">High (RTX 3060 / Ryzen 5 5600X)</option>
+          <option value="25">Ultra (RTX 4070 / i7 Gen 13)</option>
+          <option value="40">Extreme (RTX 4090 / Ryzen 9)</option>
+        </select>
+        <select id="targetGameSelect"></select>
       </div>
-      <button class="btn-calculate" onclick="calculatePerformance()">DETEKSI PERFORMA</button>
-
+      <button class="btn-calculate" onclick="calculatePerformance()">CEK ESTIMASI FPS</button>
       <div id="resultArea">
-        <span id="fpsResult" style="font-size: 1.5rem; display: block; margin-bottom: 5px;"></span>
-        <span id="statusResult" style="font-size: 0.9rem; font-weight: bold; text-transform: uppercase;"></span>
+        <span id="fpsResult" style="font-size: 1.8rem; display: block; font-weight: bold;"></span>
+        <span id="statusResult" style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;"></span>
       </div>
     </div>
 
-    <input type="text" class="search-bar" id="gameSearch" placeholder="Cari Game atau Genre (Contoh: RPG, FPS, GTA)..." onkeyup="searchGame()">
-
-    <div id="gameList">
-      <div class="game-card" data-search="the witcher 3 adventure rpg">
-        <div class="card-head"><h3>The Witcher 3</h3><span class="genre-tag">Adventure / RPG</span></div>
-        <div class="spec-grid">
-          <div class="spec-item"><label>Minimal</label><p>i5-2500K / GTX 660</p><span class="fps-val">~30-40 FPS</span></div>
-          <div class="spec-item" style="border: 1px solid var(--ps-accent);"><label style="color:var(--ps-accent)">Rekomendasi</label><p>i7-3770 / RTX 3060</p><span class="fps-val">~60+ FPS</span></div>
-        </div>
-      </div>
-
-      <div class="game-card" data-search="cyberpunk 2077 open world action">
-        <div class="card-head"><h3>Cyberpunk 2077</h3><span class="genre-tag">Open World</span></div>
-        <div class="spec-grid">
-          <div class="spec-item"><label>Minimal</label><p>i7-6700 / GTX 1060 / SSD</p><span class="fps-val">~30 FPS</span></div>
-          <div class="spec-item" style="border: 1px solid var(--ps-accent);"><label style="color:var(--ps-accent)">Rekomendasi</label><p>i9-14900 / RTX 4080</p><span class="fps-val">~80+ FPS</span></div>
-        </div>
-      </div>
-
-      <div class="game-card" data-search="gta vi grand theft auto 6 crime">
-        <div class="card-head"><h3>Grand Theft Auto VI</h3><span class="genre-tag">Action / Crime</span></div>
-        <div class="spec-grid">
-          <div class="spec-item"><label>Minimal</label><p>Ryzen 5 5600 / RTX 2070</p><span class="fps-val">~30 FPS</span></div>
-          <div class="spec-item" style="border: 1px solid var(--ps-accent);"><label style="color:var(--ps-accent)">Rekomendasi</label><p>Ryzen 9 / RTX 4090</p><span class="fps-val">~60+ FPS (4K)</span></div>
-        </div>
-      </div>
-
-      <div class="game-card" data-search="valorant fps shooter competitive">
-        <div class="card-head"><h3>Valorant</h3><span class="genre-tag">FPS / Shooter</span></div>
-        <div class="spec-grid">
-          <div class="spec-item"><label>Minimal</label><p>i3-4150 / GT 730</p><span class="fps-val">~60 FPS</span></div>
-          <div class="spec-item" style="border: 1px solid var(--ps-accent);"><label style="color:var(--ps-accent)">Rekomendasi</label><p>i5-9400F / GTX 1050 Ti</p><span class="fps-val">~144+ FPS</span></div>
-        </div>
-      </div>
-
-      <div class="game-card" data-search="genshin impact anime adventure rpg">
-        <div class="card-head"><h3>Genshin Impact</h3><span class="genre-tag">Adventure RPG</span></div>
-        <div class="spec-grid">
-          <div class="spec-item"><label>Minimal</label><p>i5 / GT 1030</p><span class="fps-val">~30 FPS</span></div>
-          <div class="spec-item" style="border: 1px solid var(--ps-accent);"><label style="color:var(--ps-accent)">Rekomendasi</label><p>i7 / RTX 2060</p><span class="fps-val">~60 FPS</span></div>
-        </div>
-      </div>
-
-    </div>
+    <input type="text" class="search-bar" id="gameSearch" placeholder="Cari Game (Contoh: Resident Evil, GTA, Dynasty...)" onkeyup="searchGame()">
+    <div id="gameList"></div>
   </div>
 
-  <footer class="footer">
-    <p>© 2025 Anwar Fauzi | Developed for PWA Platform</p>
-  </footer>
-
   <script>
-    // SIMULATOR LOGIC
+    // DATABASE GAME NYATA
+    const gameDatabase = [
+      // GTA SERIES
+      { t: "Grand Theft Auto VI", g: "Action", min: "RTX 2070", rec: "RTX 4080", w: 15 },
+      { t: "Grand Theft Auto V", g: "Action", min: "GT 9800", rec: "GTX 660", w: 3 },
+      { t: "Grand Theft Auto IV", g: "Action", min: "9600 GT", rec: "GTX 460", w: 2 },
+      
+      // RESIDENT EVIL SERIES
+      { t: "Resident Evil 2 Remake", g: "Horror", min: "GTX 760", rec: "GTX 1060", w: 5 },
+      { t: "Resident Evil 3 Remake", g: "Horror", min: "GTX 760", rec: "GTX 1060", w: 5 },
+      { t: "Resident Evil 4 Remake", g: "Horror", min: "GTX 1050 Ti", rec: "RTX 2070", w: 8 },
+      { t: "Resident Evil Village", g: "Horror", min: "GTX 1050 Ti", rec: "RTX 2060", w: 6 },
+      { t: "Resident Evil 7: Biohazard", g: "Horror", min: "GTX 760", rec: "GTX 1060", w: 4 },
+      
+      // DYNASTY WARRIORS SERIES
+      { t: "Dynasty Warriors 9", g: "Hack & Slash", min: "GTX 660", rec: "GTX 1060", w: 7 },
+      { t: "Dynasty Warriors 8: Xtreme", g: "Hack & Slash", min: "GT 8600", rec: "GTX 660", w: 3 },
+      { t: "Dynasty Warriors 7: Definitive", g: "Hack & Slash", min: "Core 2 Duo", rec: "GTX 460", w: 2 },
+      { t: "Dynasty Warriors: Origins", g: "Hack & Slash", min: "RTX 2060", rec: "RTX 3070", w: 10 },
+
+      // OTHER POPULAR
+      { t: "Black Myth: Wukong", g: "Action RPG", min: "GTX 1060", rec: "RTX 3060", w: 12 },
+      { t: "Red Dead Redemption 2", g: "Open World", min: "GTX 770", rec: "GTX 1060", w: 7 },
+      { t: "Red Dead Redemption 1 PC", g: "Action", min: "GTX 960", rec: "RTX 2060", w: 4 },
+      { t: "Elden Ring", g: "Soulslike", min: "GTX 1060", rec: "RTX 3070", w: 9 },
+      { t: "Cyberpunk 2077", g: "Open World", min: "GTX 1060", rec: "RTX 3080", w: 10 },
+      { t: "Ghost of Tsushima", g: "Action", min: "GTX 960", rec: "RTX 3070", w: 7 },
+      { t: "Genshin Impact", g: "Adventure", min: "GT 1030", rec: "RTX 2060", w: 4 },
+      { t: "Valorant", g: "FPS", min: "Intel HD 4000", rec: "GTX 1050 Ti", w: 2 },
+      { t: "Counter-Strike 2", g: "FPS", min: "GTX 1050 Ti", rec: "RTX 3060", w: 4 }
+    ];
+
+    const listContainer = document.getElementById('gameList');
+    const selectContainer = document.getElementById('targetGameSelect');
+
+    // URUTKAN GAME BERDASARKAN ABJAD
+    gameDatabase.sort((a, b) => a.t.localeCompare(b.t));
+
+    // GENERATE UI
+    gameDatabase.forEach(game => {
+      const opt = document.createElement('option');
+      opt.value = game.w; opt.innerText = game.t;
+      selectContainer.appendChild(opt);
+
+      const card = document.createElement('div');
+      card.className = 'game-card';
+      card.setAttribute('data-search', game.t.toLowerCase() + " " + game.g.toLowerCase());
+      card.innerHTML = `
+        <div class="card-head"><h3>${game.t}</h3><span class="genre-tag">${game.g}</span></div>
+        <div class="spec-grid">
+          <div class="spec-item"><label>Minimal</label><p>${game.min}</p></div>
+          <div class="spec-item" style="border: 1px solid rgba(0,217,255,0.2)"><label style="color:var(--ps-accent)">Rekomendasi</label><p>${game.rec}</p></div>
+        </div>
+      `;
+      listContainer.appendChild(card);
+    });
+
     function calculatePerformance() {
-      const uPower = parseInt(document.getElementById('userSpecs').value);
-      const gWeight = parseInt(document.getElementById('targetGame').value);
-      const resArea = document.getElementById('resultArea');
-      const fpsText = document.getElementById('fpsResult');
-      const statusText = document.getElementById('statusResult');
+      const u = parseInt(document.getElementById('userSpecs').value);
+      const g = parseInt(document.getElementById('targetGameSelect').value);
+      const res = document.getElementById('resultArea');
+      res.style.display = "block";
+      
+      const ratio = u / g;
+      let fps, status, color;
 
-      resArea.style.display = "block";
+      if (ratio < 0.5) { fps = "~10-18"; status = "Unplayable (Slide Show)"; color = "#f44336"; }
+      else if (ratio < 0.8) { fps = "~24-30"; status = "Playable (Low / Laggy)"; color = "#ff9800"; }
+      else if (ratio < 1.5) { fps = "~45-60"; status = "Lancar (Med-High)"; color = "#4caf50"; }
+      else { fps = "~90-144+"; status = "Sangat Lancar (Ultra)"; color = "#00d9ff"; }
 
-      let fps = 0;
-      let status = "";
-      let color = "";
-
-      // Logic: Bandingkan Point User vs Point Game
-      const ratio = uPower / gWeight;
-
-      if (ratio < 0.6) {
-        fps = Math.floor(Math.random() * (15 - 5) + 5);
-        status = "Tidak Playable (Lag Parah)";
-        color = "#f44336"; // Danger Red
-      } else if (ratio < 1) {
-        fps = Math.floor(Math.random() * (35 - 24) + 24);
-        status = "Playable (Setting Low / 720p)";
-        color = "#ff9800"; // Warning Orange
-      } else if (ratio < 1.8) {
-        fps = Math.floor(Math.random() * (60 - 45) + 45);
-        status = "Lancar Jaya (Setting Medium/High)";
-        color = "#4caf50"; // Success Green
-      } else {
-        fps = Math.floor(Math.random() * (120 - 75) + 75);
-        status = "Rata Kanan (Ultra High Performance)";
-        color = "#00d9ff"; // PS Accent
-      }
-
-      fpsText.innerHTML = `± ${fps} FPS`;
-      fpsText.style.color = color;
-      statusText.innerHTML = status;
-      statusText.style.color = color;
-      resArea.style.borderColor = color;
-      resArea.style.background = `rgba(0,0,0,0.5)`;
+      document.getElementById('fpsResult').innerText = fps + " FPS";
+      document.getElementById('fpsResult').style.color = color;
+      document.getElementById('statusResult').innerText = status;
+      document.getElementById('statusResult').style.color = color;
+      res.style.borderColor = color;
     }
 
-    // SEARCH LOGIC
     function searchGame() {
       let input = document.getElementById('gameSearch').value.toLowerCase();
       let cards = document.getElementsByClassName('game-card');
-      for (let i = 0; i < cards.length; i++) {
-        let content = cards[i].getAttribute('data-search');
-        cards[i].style.display = content.includes(input) ? "" : "none";
+      for (let card of cards) {
+        card.style.display = card.getAttribute('data-search').includes(input) ? "" : "none";
       }
-    }
-
-    // SW REG
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js').catch(err => console.log(err));
     }
   </script>
 </body>
