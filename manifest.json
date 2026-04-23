@@ -1,37 +1,41 @@
 {
   "id": "./",
-  "name": "PWA Template Responsif",
-  "short_name": "PWA Demo",
-  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
+  "name": "Game Spec Detector Pro",
+  "short_name": "Game Spec Pro",
+  "description": "Aplikasi Game Spec Detector Pro untuk mengecek spesifikasi game.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#4F46E5",
-  "theme_color": "#4F46E5",
+  "background_color": "#001740",
+  "theme_color": "#003791",
   "orientation": "portrait",
   "lang": "id",
   "icons": [
     {
-      "src": "icons/icon-192x192-A.png",
+      "src": "icons/app-logo.jpg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512x512-B.png",
+      "src": "icons/app-logo.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
     {
       "src": "icons/screenshot1.png",
       "sizes": "1080x1920",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "narrow"
     },
     {
       "src": "icons/screenshot2.png",
       "sizes": "1080x1920",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "narrow"
     }
   ],
   "shortcuts": [
@@ -41,14 +45,16 @@
       "url": "./index.html",
       "icons": [
         {
-          "src": "icons/icon-192x192-A.png",
-          "sizes": "192x192"
+          "src": "icons/app-logo.jpg",
+          "sizes": "192x192",
+          "type": "image/jpeg"
         }
       ]
     }
   ],
   "categories": [
     "productivity",
-    "utilities"
+    "utilities",
+    "games"
   ]
 }
