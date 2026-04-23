@@ -27,12 +27,12 @@
   "screenshots": [
     {
       "src": "icons/SS 1.png",
-      "sizes": "1080x1920",
+      "sizes": "1920x1080",
       "type": "image/png"
     },
     {
       "src": "icons/SS 2.png",
-      "sizes": "1080x1920",
+      "sizes": "1920x1080",
       "type": "image/png"
     }
   ],
