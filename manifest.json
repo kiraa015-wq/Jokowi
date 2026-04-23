@@ -1,26 +1,26 @@
 {
   "id": "./",
-  "name": "Game Spec Detector Pro",
-  "short_name": "Game Spec Pro",
-  "description": "Aplikasi Game Spec Detector Pro untuk mengecek spesifikasi game.",
+  "name": "PWA Template Responsif",
+  "short_name": "PWA Demo",
+  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#001740",
-  "theme_color": "#003791",
+  "background_color": "#4F46E5",
+  "theme_color": "#4F46E5",
   "orientation": "portrait",
   "lang": "id",
   "icons": [
     {
-      "src": "icons/app-logo.jpg",
+      "src": "icons/icon-192x192-A.png",
       "sizes": "192x192",
-      "type": "image/jpeg",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "icons/app-logo.jpg",
+      "src": "icons/icon-512x512-B.png",
       "sizes": "512x512",
-      "type": "image/jpeg",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
@@ -28,14 +28,12 @@
     {
       "src": "icons/screenshot1.png",
       "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "type": "image/png"
     },
     {
       "src": "icons/screenshot2.png",
       "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow"
+      "type": "image/png"
     }
   ],
   "shortcuts": [
@@ -45,16 +43,14 @@
       "url": "./index.html",
       "icons": [
         {
-          "src": "icons/app-logo.jpg",
-          "sizes": "192x192",
-          "type": "image/jpeg"
+          "src": "icons/icon-192x192-A.png",
+          "sizes": "192x192"
         }
       ]
     }
   ],
   "categories": [
     "productivity",
-    "utilities",
-    "games"
+    "utilities"
   ]
 }
