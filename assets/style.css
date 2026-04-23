@@ -68,6 +68,7 @@ button:hover {
 
 @media (max-width: 600px) {
   .card {
+    
     padding: 1.25rem;
   }
   h1 {
