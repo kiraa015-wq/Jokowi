@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#003791" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192x192-A.png">
   <title>Game Spec Detector Pro - Full Database</title>
 
   <style>
@@ -178,6 +180,18 @@
       for (let card of cards) {
         card.style.display = card.getAttribute('data-search').includes(input) ? "" : "none";
       }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(registration => {
+            console.log('ServiceWorker berhasil diregistrasi dengan scope:', registration.scope);
+          })
+          .catch(err => {
+            console.log('Registrasi ServiceWorker gagal:', err);
+          });
+      });
     }
   </script>
 </body>
